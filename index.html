@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Money Tracker — Catat & Kelola Keuangan Pribadi</title>
+  <meta name="description" content="AI Money Tracker membantu mencatat pemasukan & pengeluaran, menyusun anggaran, dan memantau kebiasaan belanja. Privasi diutamakan.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://example.com/">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Money Tracker — Catat & Kelola Keuangan Pribadi">
+  <meta property="og:description" content="Catatan keuangan yang sederhana, aman, dan praktis.">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Money Tracker — Catat & Kelola Keuangan Pribadi">
+  <meta name="twitter:description" content="Catatan keuangan yang sederhana, aman, dan praktis.">
+  <meta name="twitter:image" content="https://example.com/og-image.png">
+  <!-- Favicons (opsional - ganti src sesuai asetmu)
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  -->
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --card: #121620;
+      --muted: #99a1b3;
+      --text: #e8ecf8;
+      --accent: #6aa3ff;
+      --accent-2: #24d19e;
+      --border: #1e2533;
+      --success: #24d19e;
+      --warning: #ffcf5c;
+      --danger: #ff7a7a;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: clamp(16px, 3vw, 28px); }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(16px, 3vw, 28px); position: sticky; top: 0; background: linear-gradient(180deg, rgba(11,13,18,.95), rgba(11,13,18,.6) 60%, rgba(11,13,18,0)); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); z-index: 20; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow); }
+    .brand h1 { font-size: 18px; margin: 0; letter-spacing: .2px; }
+    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 14px; background: linear-gradient(135deg, #1a2233, #121826); border: 1px solid var(--border); box-shadow: var(--shadow); font-weight: 600; }
+    .cta svg { width: 20px; height: 20px; }
+    .hero { padding: 60px 0 28px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(18px, 3vw, 28px); align-items: center; }
+    .hero h2 { font-size: clamp(28px, 4.4vw, 48px); line-height: 1.15; margin: 0 0 16px; }
+    .lead { color: var(--muted); margin-bottom: 18px; font-size: clamp(15px, 2.2vw, 18px); }
+    .pills { display:flex; gap:10px; flex-wrap: wrap; margin: 8px 0 22px; }
+    .pill { padding: 8px 12px; background: #0f1420; border:1px solid var(--border); border-radius: 100px; color: #c9d2e6; font-size: 13px; }
+    .card { background: linear-gradient(180deg, #0f141d, #0b0f18); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .phone { aspect-ratio: 9/19.5; border-radius: 32px; border: 1px solid #20283a; background: radial-gradient(90% 80% at 50% 10%, #152034, #0b101a); position: relative; padding: 18px; overflow: hidden; }
+    .phone::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 30% at 50% 0, rgba(255,255,255,.07), transparent 60%); }
+    .screen { position: absolute; inset: 18px; border-radius: 22px; background: #0a0f19; border: 1px solid #1c2434; box-shadow: inset 0 0 0 1px rgba(255,255,255,.02); display: grid; place-items: center; color:#b9c6e3; padding: 18px; text-align: center; }
+    .screen small { opacity: .8; }
+    .grid { display: grid; gap: 18px; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 34px 0; }
+    h3.section-title { margin: 0 0 12px; font-size: clamp(20px, 2.8vw, 24px); }
+    p.section-sub { margin: 0 0 18px; color: var(--muted); }
+    .feature { padding: 16px; border-radius: 14px; border:1px solid var(--border); background: linear-gradient(180deg, #0c111a, #0b0f17); }
+    .feature h4 { margin: 2px 0 8px; font-size: 16px; }
+    .feature p { margin: 0; color: #c4cbe0; font-size: 14px; }
+    .kicker { font-size: 12px; letter-spacing: .3px; color: #b9c6e3; text-transform: uppercase; }
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge { padding: 6px 10px; font-size: 12px; border-radius: 999px; background: #0e1422; border: 1px solid var(--border); color: #bcd0ff; }
+    .cta-bar { display: grid; gap: 12px; grid-template-columns: 1fr auto; align-items: center; padding: 16px; border-radius: 14px; border:1px solid var(--border); background: linear-gradient(90deg, #0e1320, #0c111b); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: linear-gradient(135deg, #1b2232, #121826); color: var(--text); font-weight: 600; cursor: pointer; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn.play svg { width: 18px; height: 18px; }
+    .list { margin: 0; padding-left: 18px; }
+    .faq { border-top: 1px solid var(--border); }
+    details { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: #0b1019; }
+    details + details { margin-top: 10px; }
+    summary { cursor: pointer; font-weight: 600; }
+    footer { border-top:1px solid var(--border); padding: 24px 0 40px; color: var(--muted); }
+    .legal { display:flex; gap: 16px; flex-wrap: wrap; }
+    .legal a { color: #9eb7ff; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid.cols-3 { grid-template-columns: 1fr; }
+      .grid.cols-2 { grid-template-columns: 1fr; }
+      .cta-bar { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "AI Money Tracker",
+    "operatingSystem": "Android",
+    "applicationCategory": "FinanceApplication",
+    "description": "Catatan keuangan yang sederhana, aman, dan praktis. Bantu susun anggaran dan pantau kebiasaan belanja.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IDR" },
+    "downloadUrl": "https://play.google.com/store/apps/details?id=com.aimoneytracker",
+    "url": "https://example.com/",
+    "publisher": { "@type": "Organization", "name": "AI Money Tracker" }
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="brand" aria-label="AI Money Tracker">
+      <div class="logo" aria-hidden="true">
+      <img src="https://play-lh.googleusercontent.com/DcXh95rlj6YtU9UzDIXXepneW_02iyE6iWNTK9bQbRG11Me8XXR9wUqjSKn_mXj78CQfxkr8bOShK0uvo8ro=w480-h960-rw" width="36px" style="border-radius: 10px">
+      </div>
+      <h1>AI Money Tracker</h1>
+    </div>
+    <a class="cta" href="https://play.google.com/store/apps/details?id=com.aimoneytracker" target="_blank" rel="noopener noreferrer" aria-label="Unduh di Google Play">
+      <!-- Simple Play icon -->
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.6 2.8l12.7 9.2c.5.4.5 1.2 0 1.6L3.6 22.8c-.7.5-1.6 0-1.6-.8V3.6c0-.8.9-1.3 1.6-.8zM17 9.1l4-2.3c.7-.4 1.6.1 1.6.9v8.6c0 .8-.9 1.3-1.6.9l-4-2.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Unduh di Google Play</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero1 wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker">Catat • Anggarkan • Kontrol</span>
+          <h2>Sederhanakan keuangan harian, <br>tanpa ribet.</h2>
+          <p class="lead">AI Money Tracker membantu mencatat pemasukan & pengeluaran, menyusun anggaran, dan memantau kebiasaan belanja dengan privasi sebagai prioritas.</p>
+          <div class="pills" aria-label="Highlight">
+          	<span class="pill">Saran budgeting AI</span>
+            <span class="pill">Data lokal & cloud backup opsional</span>
+            <span class="pill">Anggaran pintar</span>
+            <span class="pill">Mode gelap (segera hadir)</span>
+            <span class="pill">Chat dengan AI (segera hadir)</span>
+          </div>
+          <div class="badges" aria-label="Keunggulan singkat">
+            <span class="badge">Ringan</span>
+            <span class="badge">Aman</span>
+            <span class="badge">Gratis Terbatas* </span>
+            <span class="badge">Indonesia</span>
+          </div>
+          <div style="height:14px"></div>
+          <a class="btn play" href="https://play.google.com/store/apps/details?id=com.aimoneytracker" target="_blank" rel="noopener noreferrer">
+            <!-- Play symbol -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5l11 7-11 7V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <span>Download di Google Play</span>
+          </a>
+          <p style="margin-top:10px; color:var(--muted); font-size:13px;">*Fitur premium tersedia untuk 100 pengguna pertama (lifetime).</p>
+        </div>
+        <div class="card phone" style="display: none" aria-label="Cuplikan antarmuka aplikasi">
+          <div class="screen">
+            <div>
+              <strong>Cuplikan UI</strong><br>
+              <small>Letakkan gambar aplikasi di sini (720×1560).</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h3 class="section-title">Fitur utama</h3>
+      <p class="section-sub">Fokus pada hal yang membuat keuanganmu terkendali — tanpa klaim berlebihan.</p>
+      <div class="grid cols-3">
+        <div class="feature">
+          <h4>Catatan cepat</h4>
+          <p>Tambah transaksi dalam hitungan detik dengan kategori dinamis & pencarian merchant.</p>
+        </div>
+        <div class="feature">
+          <h4>Anggaran pintar</h4>
+          <p>Buat batas pengeluaran esensial dan gaya hidup agar tetap realistis untuk kondisimu.</p>
+        </div>
+        <div class="feature">
+          <h4>Insight terarah</h4>
+          <p>Dapatkan ringkasan mingguan & bulanan untuk kebiasaan belanja dan saran penghematan.</p>
+        </div>
+        <div class="feature">
+          <h4>Backup opsional</h4>
+          <p>Simpan data lokal atau aktifkan sinkronisasi/backup ke cloud sesuai kebutuhan.</p>
+        </div>
+        <div class="feature">
+          <h4>Privasi diutamakan</h4>
+          <p>Kamu mengontrol data. Lihat <a href="#privasi">kebijakan privasi ringkas</a> di bawah.</p>
+        </div>
+        <div class="feature">
+          <h4>Tema gelap</h4>
+          <p>Desain nyaman dipandang untuk penggunaan siang & malam.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" id="privasi">
+      <h3 class="section-title">Privasi</h3>
+      <div class="grid cols-2">
+        <div class="feature">
+          <h4>Ringkas</h4>
+          <ul class="list">
+            <li>Data transaksi disimpan di perangkat; sinkronisasi/backup bersifat opsional.</li>
+            <li>Kami tidak menjual data pribadi.</li>
+            <li>Izin hanya digunakan untuk fitur yang kamu aktifkan.</li>
+          </ul>
+          <div style="height:10px"></div>
+          <a class="btn" href="https://www.termsfeed.com/live/6c361932-7537-4e5d-8dee-419dc8777257" rel="nofollow">Baca kebijakan privasi lengkap</a>
+        </div>
+        <div class="feature">
+          <h4>Kepatuhan</h4>
+          <p>Kami mengikuti panduan platform (Google Play) dan praktik terbaik privasi agar sesuai dengan kebijakan periklanan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="cta-bar">
+        <div>
+          <strong>Siap mengatur keuangan lebih rapi?</strong><br>
+          <span style="color:var(--muted)">Mulai gratis, upgrade kapan pun.</span>
+        </div>
+        <a class="btn play" href="https://play.google.com/store/apps/details?id=com.aimoneytracker" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5l11 7-11 7V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span>Download di Google Play</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap faq" aria-label="Pertanyaan yang sering diajukan">
+      <h3 class="section-title">FAQ</h3>
+      <details>
+        <summary>Apakah aplikasi ini gratis?</summary>
+        <p>Ya, fitur dasar gratis. Beberapa fitur premium opsional tersedia untuk pengguna baru.</p>
+      </details>
+      <details>
+        <summary>Apakah ini aplikasi keuangan atau investasi?</summary>
+        <p>AI Money Tracker adalah alat pencatat & penganggaran. Ini bukan platform pinjaman, trading, atau investasi.</p>
+      </details>
+      <details>
+        <summary>Bagaimana dukungan & kontak?</summary>
+        <p>Silakan hubungi kami via email: <a href="mailto:support@aimoneytracker.com">support@aimoneytracker.com</a>.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <div class="logo" aria-hidden="true">
+      	<img src="https://play-lh.googleusercontent.com/DcXh95rlj6YtU9UzDIXXepneW_02iyE6iWNTK9bQbRG11Me8XXR9wUqjSKn_mXj78CQfxkr8bOShK0uvo8ro=w480-h960-rw" width="36px" style="border-radius: 10px">
+      </div>
+      <strong>AI Money Tracker</strong>
+    </div>
+    <div class="legal">
+      <span>&copy; <span id="y"></span> AI Money Tracker</span>
+      <a href="https://www.termsfeed.com/live/6c361932-7537-4e5d-8dee-419dc8777257" rel="nofollow">Kebijakan Privasi</a>
+      <a href="mailto:aimoneytracker.official@gmail.com">Dukungan</a>
+      <a href="https://play.google.com/store/apps/details?id=com.aimoneytracker" target="_blank" rel="noopener">Google Play</a>
+    </div>
+    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  </footer>
+</body>
+            </html>
